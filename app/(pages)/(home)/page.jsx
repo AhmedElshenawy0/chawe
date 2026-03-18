@@ -363,7 +363,7 @@ export default function HelloPage() {
                 placeholder="Enter your name"
                 value={form.name}
                 onChange={set("name")}
-                error={errors.password}
+                error={errors.name}
                 icon={
                   <button
                     type="button"
