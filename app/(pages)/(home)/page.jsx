@@ -418,7 +418,8 @@ export default function HelloPage() {
               </label>
 
               {/* Submit */}
-              <button
+              <Link
+                href={"/chat"}
                 type="submit"
                 disabled={loading}
                 className="mt-1 w-full flex items-center justify-center gap-2 h-[50px] text-white text-[14px] font-bold tracking-[.06em] uppercase transition-all duration-200 hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed border-none cursor-pointer"
@@ -471,7 +472,7 @@ export default function HelloPage() {
                     </svg>
                   </>
                 )}
-              </button>
+              </Link>
             </form>
           </div>
         </div>
