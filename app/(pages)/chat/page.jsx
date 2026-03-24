@@ -208,22 +208,7 @@ const CHIPS = [
   "شكاوى",
 ];
 
-const INITIAL_MSGS = [
-  {
-    id: 1,
-    role: "user",
-    text: "WE Gold 775 فيها كام جيجا موبايل إنترنت؟",
-    time: "2:14 م",
-    liked: false,
-  },
-  {
-    id: 2,
-    role: "bot",
-    response: DUMMY_RESPONSES[0],
-    time: "2:14 م",
-    liked: false,
-  },
-];
+const INITIAL_MSGS = [];
 
 const SIDE_ACTIONS = [
   { label: "عرض جدول الأسعار", icon: <TableOutlined /> },
@@ -800,12 +785,22 @@ function EmptyState({ onChip }) {
         padding: "40px 20px",
         textAlign: "center",
       }}
+      className="relative bg-white"
     >
       <motion.div
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        className="overflow-hidden relative"
       >
-        <WEBadge size={72} glow />
+        <div className="relative flex items-center justify-center mb-10">
+          <div className="relative z-10 w-[110px] h-[110px] bg-transparent rounded-2xl overflow-hidden animate-pulse">
+            <img
+              src="/Gen-4TurboSlowsubtlerotationpulsingglow2216139408-ezgif.com-video-to-webp-converter.webp"
+              alt="We Logo"
+              className="w-full h-full"
+            />
+          </div>
+        </div>{" "}
       </motion.div>
       <div>
         <p
@@ -816,7 +811,7 @@ function EmptyState({ onChip }) {
             margin: "0 0 6px",
           }}
         >
-          أهلاً! أنا لبيب
+          أهلاً! أنا سيلزاوي
         </p>
         <p style={{ fontSize: 13, color: C.onSurfaceVar, margin: 0 }}>
           مساعدك الذكي لباقات WE — اسألني عن أي شيء
@@ -959,7 +954,7 @@ function SidebarContent({ onNewChat, onClose }) {
                 lineHeight: 1,
               }}
             >
-              لبيب
+              سيلزاوي{" "}
             </h1>
             <div
               style={{
@@ -1680,12 +1675,14 @@ export default function LabibChat() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
             style={{
-              width: 248,
+              position: "relative",
+              zIndex: 2,
+              width: 272,
               flexShrink: 0,
               background: C.surfaceLow,
               display: "flex",
               flexDirection: "column",
-              borderLeft: `1px solid ${C.outlineVar}30`,
+              borderRight: `1px solid ${C.outlineVar}30`,
               height: "100vh",
               boxShadow: `4px 0 20px ${C.primaryGlow}`,
             }}
@@ -1854,12 +1851,14 @@ export default function LabibChat() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
             style={{
+              position: "relative",
+              zIndex: 2,
               width: 272,
               flexShrink: 0,
               background: C.surfaceLow,
               display: "flex",
               flexDirection: "column",
-              borderRight: `1px solid ${C.outlineVar}30`,
+              borderLeft: `1px solid ${C.outlineVar}30`,
               height: "100vh",
               boxShadow: `-4px 0 20px ${C.primaryGlow}`,
             }}
