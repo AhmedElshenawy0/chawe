@@ -57,7 +57,7 @@ export default function LoginPage() {
                   </div>
                 </div>{" "}
               </motion.div>
-              <h1 className="text-3xl font-bold text-[#7f3aa1]">لبيب</h1>
+              <h1 className="text-3xl font-bold text-[#7f3aa1]">سيلزاوي</h1>
             </div>
 
             <p className="text-[#655a70] font-medium">Sales@we</p>
