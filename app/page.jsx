@@ -62,12 +62,12 @@ export default function LoginPage() {
 
             <p className="text-[#655a70] font-medium">Sales@we</p>
 
-            <div className="mt-4 flex justify-center opacity-30">
+            {/* <div className="mt-4 flex justify-center opacity-30">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuB44EnHvjaIenwnmzxT11O90Whx0-r9lhJfItZP6xVIgb9td3peX1H4D3QI3xtFflRkLBE_D095gWUfRDxh2Ba6bwygJzCtyCEwyudxI73aDt_Aa8bE4_896LfTLHKS6Lb2UpvhVKW-T7ebR10MaBgPdDACPCM02tqxaHAy0mhutnAJu49eOBe0Oz3epGiTjUzOl6a8bVIndKB_UzU3o7Mej2yYQ7rOAVsrm-5zULuvk4de37tJQ3pJFuQ8-eBY25FIpXHZMBG1g1k"
                 className="h-6"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* CARD */}
