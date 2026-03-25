@@ -787,7 +787,7 @@ function EmptyState({ onChip }) {
       }}
       className="relative bg-white"
     >
-      <motion.div
+      {/* <motion.div
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         className="overflow-hidden relative"
@@ -801,7 +801,7 @@ function EmptyState({ onChip }) {
             />
           </div>
         </div>{" "}
-      </motion.div>
+      </motion.div> */}
       <div>
         <p
           style={{
