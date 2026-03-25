@@ -11,12 +11,13 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoginPage() {
   return (
     <div
       dir="rtl"
-      className="min-h-screen flex flex-col bg-[#f8f9fd] text-[#191c1f] relative overflow-hidden font-[Cairo]"
+      className="min-h-screen flex flex-col bg-[#ffffff] text-[#191c1f] relative overflow-hidden font-[Cairo]"
     >
       {/* HEADER */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f8f9fd]">
@@ -36,10 +37,26 @@ export default function LoginPage() {
         <div className="w-full max-w-[440px] animate-fade-in">
           {/* BRAND */}
           <div className="text-center mb-8">
-            <div className="flex justify-center items-center gap-3 mb-2">
-              <div className="h-10 w-10 flex items-center justify-center bg-[#7f3aa1] rounded-lg shadow-sm">
-                🤖
-              </div>
+            <div className="flex justify-center flex-col items-center gap-0 mb-2">
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut",
+                }}
+                className="overflow-hidden relative"
+              >
+                <div className="relative flex items-center justify-center mb-5">
+                  <div className="relative z-10 w-[110px] h-[110px] bg-transparent rounded-2xl overflow-hidden animate-pulse">
+                    <img
+                      src="/Gen-4TurboSlowsubtlerotationpulsingglow2216139408-ezgif.com-video-to-webp-converter.webp"
+                      alt="We Logo"
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>{" "}
+              </motion.div>
               <h1 className="text-3xl font-bold text-[#7f3aa1]">لبيب</h1>
             </div>
 
