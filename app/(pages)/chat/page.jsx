@@ -49,6 +49,7 @@ const C = {
   amber50: "#fffbeb",
   amber200: "#fde68a",
   amber700: "#b45309",
+  move200: "rgb(73, 34, 91)",
   amber900: "#78350f",
   msgUser: "#2d1b45",
   msgBot: "#ffffff",
@@ -56,14 +57,22 @@ const C = {
 
 /* ─── Breakpoints ──────────────────────────────────────────────────────────── */
 function useBreakpoint() {
-  const [w, setW] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200,
-  );
+  const [w, setW] = useState(1200);
+
   useEffect(() => {
-    const fn = () => setW(window.innerWidth);
-    window.addEventListener("resize", fn);
-    return () => window.removeEventListener("resize", fn);
+    const update = () => {
+      setW(window.innerWidth);
+    };
+
+    update();
+
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("resize", update);
+    };
   }, []);
+
   return {
     isMobile: w < 640,
     isTablet: w >= 640 && w < 1024,
@@ -1111,7 +1120,7 @@ function SidebarContent({ onNewChat, onClose }) {
               margin: 0,
             }}
           >
-            أحمد محمود
+            كمال الشناوي
           </p>
           <p style={{ fontSize: 10, color: C.onSurfaceVar, margin: 0 }}>
             موظف مبيعات - القاهرة
@@ -1355,48 +1364,87 @@ function ContextPanelContent({ lastTip, onClose }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             style={{
-              background: C.amber50,
-              border: `1.5px solid ${C.amber200}`,
-              borderRadius: 14,
-              padding: 16,
+              position: "relative",
+              borderRadius: 16,
+              padding: 1.5,
+              overflow: "hidden",
             }}
           >
+            {/* Animated Border */}
+            <motion.div
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                position: "absolute",
+                inset: -80,
+                background: `
+            conic-gradient(
+              from 0deg,
+              transparent,
+              ${C.surfaceLow},
+              ${C.move200},
+              ${C.surfaceLow},
+              transparent
+            )
+          `,
+              }}
+            />
+
+            {/* Content */}
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 8,
+                position: "relative",
+                background: C.amber50,
+                borderRadius: 14,
+                padding: 16,
+                zIndex: 2,
               }}
             >
-              <motion.span
-                animate={{ rotate: [0, 15, -15, 0] }}
-                transition={{ repeat: Infinity, duration: 3, delay: 1 }}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 8,
+                }}
               >
-                <BulbOutlined style={{ color: C.amber700, fontSize: 16 }} />
-              </motion.span>
-              <h4
+                <motion.span
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ repeat: Infinity, duration: 3, delay: 1 }}
+                >
+                  <BulbOutlined style={{ color: C.amber700, fontSize: 16 }} />
+                </motion.span>
+
+                <h4
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: C.amber700,
+                    margin: 0,
+                  }}
+                >
+                  نصيحة البيع
+                </h4>
+              </div>
+
+              <p
                 style={{
                   fontSize: 11,
-                  fontWeight: 700,
-                  color: C.amber700,
+                  lineHeight: 1.7,
+                  color: C.amber900,
+                  fontWeight: 500,
                   margin: 0,
                 }}
               >
-                نصيحة البيع
-              </h4>
+                {lastTip}
+              </p>
             </div>
-            <p
-              style={{
-                fontSize: 11,
-                lineHeight: 1.7,
-                color: C.amber900,
-                fontWeight: 500,
-                margin: 0,
-              }}
-            >
-              {lastTip}
-            </p>
           </motion.div>
         </AnimatePresence>
       </div>
