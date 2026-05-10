@@ -1617,14 +1617,12 @@ export default function LabibChat() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams.get("id");
+    const isAuth = localStorage.getItem("we-auth");
 
-    if (!token) return;
-
-    if (token !== "we-sales-#2752tg36-ei#&7PdI9") {
+    if (isAuth !== "true") {
       router.replace("/");
     }
-  }, [searchParams, router]);
+  }, [router]);
 
   const handleSend = useCallback((text) => {
     const userMsg = {
