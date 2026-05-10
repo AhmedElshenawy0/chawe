@@ -1618,13 +1618,13 @@ export default function LabibChat() {
 
   useEffect(() => {
     const token = searchParams.get("id");
+
+    if (!token) return;
+
     if (token !== "we-sales-#2752tg36-ei#&7PdI9") {
-      router.replace("/"); // redirect to login
+      router.replace("/");
     }
-  }, []);
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
+  }, [searchParams, router]);
 
   const handleSend = useCallback((text) => {
     const userMsg = {
