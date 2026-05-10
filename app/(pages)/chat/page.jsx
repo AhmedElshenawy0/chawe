@@ -27,6 +27,7 @@ import {
   StarOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 
 /* ─── Design tokens ────────────────────────────────────────────────────────── */
 const C = {
@@ -73,139 +74,171 @@ function useBreakpoint() {
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 const DUMMY_RESPONSES = [
   {
-    trigger: ["gold", "جولد", "775"],
-    type: "package",
-    text: "باقة WE Gold 775 هي من أقوى باقاتنا! إليك تفاصيلها الكاملة:",
-    package: {
-      name: "WE Gold 775",
-      price: "775",
-      tax: "968",
-      features: [
-        { icon: "wifi", label: "موبايل إنترنت", value: "30 جيجا" },
-        { icon: "phone", label: "دقائق لكل الشبكات", value: "6,000 دقيقة" },
-        { icon: "home", label: "إنترنت منزلي", value: "سوبر 250 مجاناً" },
-      ],
-    },
-    tip: "ركز على ميزة الإنترنت المنزلي المجاني — العميل يوفر ~300 جنيه شهرياً.",
-  },
-  {
-    trigger: ["500", "gold 500"],
-    type: "package",
-    text: "باقة WE Gold 500 مناسبة للعملاء ذوي الاستخدام المتوسط:",
-    package: {
-      name: "WE Gold 500",
-      price: "500",
-      tax: "625",
-      features: [
-        { icon: "wifi", label: "موبايل إنترنت", value: "15 جيجا" },
-        { icon: "phone", label: "دقائق لكل الشبكات", value: "3,000 دقيقة" },
-        { icon: "home", label: "إنترنت منزلي", value: "سوبر 150 مجاناً" },
-      ],
-    },
-    tip: "مناسب للعملاء الذين يبحثون عن سعر أقل مع مميزات معقولة.",
-  },
-  {
-    trigger: ["1000", "gold 1000", "الف", "ألف"],
-    type: "package",
-    text: "باقة WE Gold 1000 — الخيار الأمثل للعملاء المميزين:",
-    package: {
-      name: "WE Gold 1000",
-      price: "1,000",
-      tax: "1,250",
-      features: [
-        { icon: "wifi", label: "موبايل إنترنت", value: "60 جيجا" },
-        { icon: "phone", label: "دقائق لكل الشبكات", value: "12,000 دقيقة" },
-        { icon: "home", label: "إنترنت منزلي", value: "سوبر 500 مجاناً" },
-      ],
-    },
-    tip: "هذه الباقة مثالية للعملاء الذين يستخدمون الإنترنت بكثافة أو يديرون أعمالاً.",
-  },
-  {
-    trigger: ["adsl", "ادسل", "منزلي", "home"],
+    trigger: ["we air", "راوتر", "air", "zte", "k10", "290", "250"],
     type: "text",
-    text: "خدمة ADSL المنزلي متاحة بسرعات متعددة:\n\n• سوبر 20 ميجا — 199 جنيه/شهر\n• سوبر 40 ميجا — 299 جنيه/شهر\n• سوبر 100 ميجا — 449 جنيه/شهر\n• سوبر 250 ميجا — 599 جنيه/شهر\n\nجميع الباقات تشمل استخدام غير محدود خلال الليل من 12 ص حتى 8 ص.",
-    tip: "اسأل العميل عن عدد أفراد الأسرة واستخدام الستريمينج لتحديد الباقة المناسبة.",
+    text: `عرض WE Air الشامل 🎯
+
+فرصة ممتازة لبيع الباكدج الشاملة!
+
+أولاً: جهاز راوتر WE Air (ZTE CAT4 K10) عليه خصم 22.7% ليصبح بسعر 850 جنيهاً بدلاً من 1100 جنيه، بشرط شراء خط داتا وتفعيله في نفس عملية الشراء.
+
+ثانياً: الباقة المناسبة له هي (We Air 290) الجديدة التي حلت محل باقة 250 القديمة.
+
+⚡ إذا كان العميل قد تلقى مكالمة من خدمة العملاء بعدم وجود إمكانية فنية للأرضي، فسيحصل على 25% جيجابايت إضافية كهدية لمدة سنة.`,
+    tip: "ركز على قيمة الخصم 22.7% وربطها بتفعيل الخط — هذا يخلق urgency فوري عند العميل.",
   },
   {
-    trigger: ["mnp", "نقل", "شبكة", "تحويل"],
+    trigger: ["super 150", "سوبر 150", "150", "fbb", "أرضي", "ارضي", "296"],
     type: "text",
-    text: "خطوات نقل الرقم (MNP) إلى WE:\n\n1️⃣ التحقق من إمكانية النقل عبر *101#\n2️⃣ تقديم الهوية الوطنية والشريحة الحالية\n3️⃣ اختيار الباقة المناسبة\n4️⃣ الانتظار من 24 إلى 72 ساعة لإتمام النقل\n5️⃣ تفعيل الشريحة الجديدة\n\n⚠️ يجب أن يكون الرقم مفعلاً منذ أكثر من 90 يوم.",
-    tip: "قدم للعميل عرض ترحيب حصري عند نقل رقمه — شهر مجاني أو جيجا إضافية.",
+    text: `Super 150 (FBB) — استراتيجية راحة البال 🧠
+
+بطل مبيعات WE! لا تدافع عن الزيادة، بل اصدمه بالحل الأوفر.
+
+باقة سوبر 150 زادت 15.6% وأصبح سعرها 296.4 جنيه.
+
+بدلاً من الدفاع عن الزيادة، اصدمه بالحل الأوفر:
+
+- ترقية فورية لـ (Super 400) زادت 1.8% فقط ← 661.2 جنيه
+- أو الباقة السنوية (Super 4800) زادت 1.8% فقط ← 7273.2 جنيه
+- أو لو استخدامه أقل: (Super 300 جيجا) ← 524.4 جنيه
+
+💡 "أوفرلك بكتير من إنك تجدد الباقة الصغيرة مرتين بـ 592 جنيه."`,
+    tip: "لا تدافع عن الزيادة — قدّم البديل الأوفر فوراً. هذا يضمن رضا العميل و Incentive عالي ليك!",
   },
   {
-    trigger: ["شكوى", "مشكلة", "سيئة", "complaint", "بطيء", "انقطع"],
+    trigger: ["nitro", "نيترو", "prime", "برايم", "130", "nitro prime"],
     type: "text",
-    text: "فهمت مشكلة العميل. إليك خطوات التعامل مع الشكوى:\n\n✅ استمع جيداً وأظهر التعاطف\n✅ سجّل الشكوى في نظام CRM برقم الحادثة\n✅ أخبر العميل بالوقت المتوقع للحل (24–48 ساعة)\n✅ تابع مع الفريق التقني إن لزم\n✅ اتصل بالعميل بعد الحل للتأكد من رضاه",
-    tip: "العميل الغاضب الذي يتم التعامل معه بشكل صحيح يصبح أكثر ولاءً من العميل الراضي أصلاً.",
+    text: `Nitro Prime — رد واثق ومباشر 💪
+
+تم تعديل الأسعار وتغيير أسماء الباقات نتيجة زيادة تكلفة التشغيل.
+
+باقة (Nitro Prime 150) القديمة التي كانت بـ 130 جنيهاً أصبح سعرها واسمها 150 جنيهاً.
+
+✅ باقات WE ما زالت تمنح "أعلى قيمة بأفضل سعر في السوق المصرية" حتى بعد هذه التعديلات.`,
+    tip: "الثقة في ردك هي نصف البيع — لا تتردد أو تعتذر. قدّم الحقيقة بوضوح وأنهِ بجملة القيمة.",
+  },
+  {
+    trigger: [
+      "gold 1200",
+      "1200",
+      "جولد 1200",
+      "1050",
+      "up-sell",
+      "upsell",
+      "gold",
+    ],
+    type: "text",
+    text: `WE Gold 1200 — فرصة Up-sell رائعة 💰
+
+باقة WE Gold 1200 (والتي كانت بسعر 1050 جنيه) تمنح العميل مرونة رائعة!
+
+إذا أراد العميل التحويل:
+- إلى باقة 200 جيجا سوبر ← مجاناً ✅
+- إلى باقة 250 جيجا سوبر ← مجاناً ✅
+- إلى باقة 400 جيجا سوبر ← 185 جنيه فقط
+- إلى باقة 750 جيجا سوبر ← 505 جنيه
+
+استخدم هذه الميزة لزيادة استهلاك العميل بوضوح وشفافية!`,
+    tip: "ابدأ دائماً بخيارات المجاني — لما العميل يشوف إنه هياخد أكتر بنفس السعر، الترقية بتبقى سهلة جداً.",
   },
   {
     trigger: ["مقارنة", "compare", "الفرق", "احسن", "أحسن", "أفضل", "الأفضل"],
     type: "compare",
-    text: "إليك مقارنة سريعة بين باقات WE Gold:",
+    text: "إليك مقارنة سريعة بين الباقات المتاحة:",
     compare: [
       {
-        name: "Gold 500",
-        price: "500 EGP",
-        internet: "15 جيجا",
-        minutes: "3,000 د",
-        home: "سوبر 150",
+        name: "Nitro Prime 150",
+        price: "150 EGP",
+        internet: "—",
+        minutes: "موبايل",
+        home: "—",
+        highlight: false,
       },
       {
-        name: "Gold 775",
-        price: "775 EGP",
-        internet: "30 جيجا",
-        minutes: "6,000 د",
-        home: "سوبر 250",
+        name: "Super 150 FBB",
+        price: "296.4 EGP",
+        internet: "150 جيجا",
+        minutes: "أرضي",
+        home: "—",
+        highlight: false,
+      },
+      {
+        name: "Super 300",
+        price: "524.4 EGP",
+        internet: "300 جيجا",
+        minutes: "أرضي",
+        home: "—",
         highlight: true,
       },
       {
-        name: "Gold 1000",
-        price: "1,000 EGP",
-        internet: "60 جيجا",
-        minutes: "12,000 د",
-        home: "سوبر 500",
+        name: "Super 400",
+        price: "661.2 EGP",
+        internet: "400 جيجا",
+        minutes: "أرضي",
+        home: "—",
+        highlight: false,
+      },
+      {
+        name: "WE Gold 1200",
+        price: "1200 EGP",
+        internet: "مرن",
+        minutes: "Gold",
+        home: "مجاني",
+        highlight: false,
       },
     ],
-    tip: "Gold 775 هي الأكثر مبيعاً لأنها تقدم أفضل قيمة مقابل السعر.",
+    tip: "Super 300 هي نقطة التحول — تقدم قيمة ممتازة مقارنة بسوبر 150 بفارق سعر معقول.",
+  },
+  {
+    trigger: ["شكوى", "مشكلة", "سيئة", "complaint", "بطيء", "انقطع"],
+    type: "text",
+    text: `خطوات التعامل مع الشكوى ✅
+
+✅ استمع جيداً وأظهر التعاطف
+✅ سجّل الشكوى في نظام CRM برقم الحادثة
+✅ أخبر العميل بالوقت المتوقع للحل (24–48 ساعة)
+✅ تابع مع الفريق التقني إن لزم
+✅ اتصل بالعميل بعد الحل للتأكد من رضاه`,
+    tip: "العميل الغاضب الذي يتم التعامل معه بشكل صحيح يصبح أكثر ولاءً من العميل الراضي أصلاً.",
   },
 ];
 
 const FALLBACK = [
-  "سؤال ممتاز! يمكنني مساعدتك في الاستفسار عن باقات WE Gold أو ADSL أو إجراءات MNP أو الشكاوى. ما الذي تحتاجه تحديداً؟",
-  "فهمت استفسارك. حالياً يمكنني تقديم معلومات عن باقات WE Gold (500 / 775 / 1000) وخدمات ADSL المنزلي وإجراءات نقل الرقم.",
-  "شكراً على سؤالك! جرب الكتابة عن: باقات Gold، ADSL المنزلي، نقل الرقم MNP، أو شكاوى العملاء.",
+  "سؤال ممتاز! يمكنني مساعدتك في الاستفسار عن عرض WE Air، باقة Super 150، Nitro Prime، أو WE Gold 1200. ما الذي تحتاجه تحديداً؟",
+  "فهمت استفسارك. حالياً يمكنني تقديم معلومات عن عرض WE Air الشامل، سوبر 150، سوبر 400، Nitro Prime، وباقة Gold 1200.",
+  "جرب الكتابة عن: WE Air، Super 150، Nitro Prime، WE Gold 1200، أو مقارنة الباقات.",
 ];
 
 const SESSIONS = [
-  {
-    id: 1,
-    title: "مقارنة باقات WE Gold",
-    time: "منذ ساعتين",
-    tag: "WE Gold",
-    active: true,
-  },
-  {
-    id: 2,
-    title: "استفسار ADSL منزلي",
-    time: "أمس",
-    tag: "ADSL",
-    active: false,
-  },
-  {
-    id: 3,
-    title: "شكوى عميل مميز",
-    time: "٢٣ أكتوبر",
-    tag: "شكاوى",
-    active: false,
-  },
+  // {
+  //   id: 1,
+  //   title: "مقارنة باقات WE Gold",
+  //   time: "منذ ساعتين",
+  //   tag: "WE Gold",
+  //   active: true,
+  // },
+  // {
+  //   id: 2,
+  //   title: "استفسار ADSL منزلي",
+  //   time: "أمس",
+  //   tag: "ADSL",
+  //   active: false,
+  // },
+  // {
+  //   id: 3,
+  //   title: "شكوى عميل مميز",
+  //   time: "٢٣ أكتوبر",
+  //   tag: "شكاوى",
+  //   active: false,
+  // },
 ];
 
 const CHIPS = [
-  "WE Gold 775",
+  "عرض WE Air الشامل",
+  "Super 150 FBB",
+  "Nitro Prime",
+  "WE Gold 1200",
   "مقارنة الباقات",
-  "ADSL منزلي",
-  "نقل الرقم MNP",
-  "شكاوى",
 ];
 
 const INITIAL_MSGS = [];
@@ -217,6 +250,17 @@ const SIDE_ACTIONS = [
 ];
 
 /* ─── Helpers ──────────────────────────────────────────────────────────────── */
+// function getResponse(text) {
+//   const l = text.toLowerCase();
+//   for (const r of DUMMY_RESPONSES) {
+//     if (r.trigger.some((t) => l.includes(t))) return r;
+//   }
+//   return {
+//     type: "text",
+//     text: FALLBACK[Math.floor(Math.random() * FALLBACK.length)],
+//     tip: null,
+//   };
+// }
 function getResponse(text) {
   const l = text.toLowerCase();
   for (const r of DUMMY_RESPONSES) {
@@ -224,8 +268,10 @@ function getResponse(text) {
   }
   return {
     type: "text",
-    text: FALLBACK[Math.floor(Math.random() * FALLBACK.length)],
-    tip: null,
+    text: `عذراً يا بطل المبيعات! 🚀 أنا (سيلزاوي) أعمل حالياً في نسختي التجريبية المغلقة (Interactive Prototype) لاستعراض واجهة المستخدم. يتم الآن في الكواليس ربط عقلي الآلي بقواعد البيانات الجديدة لباقات وعروض الشركة ليتم الرد على أسئلتك المفتوحة.
+
+💡 رجاءً قم بالنقر على أحد (الأسئلة السريعة المقترحة) في الشاشة لتجربة قدراتي البيعية والتحليلية على أحدث عروض وأسعار الشركة!`,
+    tip: "استخدم الأسئلة السريعة للحصول على أفضل تجربة مع سيلزاوي في هذه المرحلة التجريبية.",
   };
 }
 function nowTime() {
@@ -765,10 +811,10 @@ function BotMessage({ msg, onLike }) {
 /* ── Empty state ──────────────────────────────────────────────────────────── */
 function EmptyState({ onChip }) {
   const suggestions = [
-    "WE Gold 775",
-    "مقارنة الباقات",
-    "شكاوى",
-    "نقل الرقم MNP",
+    "عرض WE Air الشامل",
+    "Super 150 FBB",
+    "Nitro Prime",
+    "WE Gold 1200",
   ];
   return (
     <motion.div
@@ -1214,7 +1260,7 @@ function ContextPanelContent({ lastTip, onClose }) {
       </motion.div>
 
       {/* Quick compare */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.14 }}
@@ -1260,7 +1306,7 @@ function ContextPanelContent({ lastTip, onClose }) {
             </span>
           </motion.div>
         ))}
-      </motion.div>
+      </motion.div> */}
 
       {/* Actions */}
       <motion.div
@@ -1473,7 +1519,7 @@ function InputArea({ onSend, isTyping }) {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             disabled={isTyping}
-            placeholder="اسأل لبيب عن أي باقة أو إجراء..."
+            placeholder="اسأل سيلزاوي عن أي باقة أو إجراء..."
             style={{
               flex: 1,
               border: "none",
@@ -1567,7 +1613,15 @@ export default function LabibChat() {
   const { isMobile, isTablet } = useBreakpoint();
   const showLeftInline = !isMobile && !isTablet;
   const showRightInline = !isMobile && !isTablet;
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
+  useEffect(() => {
+    const token = searchParams.get("token");
+    if (token !== "we-sales-4939") {
+      router.replace("/"); // redirect to login
+    }
+  }, []);
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);

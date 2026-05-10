@@ -4,16 +4,34 @@ import { Input, Button } from "antd";
 import {
   UserOutlined,
   LockOutlined,
-  LoginOutlined,
   InfoCircleOutlined,
   GlobalOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaArrowRightToBracket } from "react-icons/fa6";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [employeeId, setEmployeeId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = () => {
+    setError("");
+    if (employeeId === "4939" && password === "4939") {
+      setLoading(true);
+      setTimeout(() => {
+        router.push("./chat?token=we-sales-4939");
+      }, 600);
+    } else {
+      setError("كود الموظف أو كلمة المرور غير صحيحة");
+    }
+  };
+
   return (
     <div
       dir="rtl"
@@ -22,7 +40,6 @@ export default function LoginPage() {
       {/* HEADER */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f8f9fd]">
         <h1 className="text-lg font-bold text-[#49225b]">WE AI Assistant</h1>
-
         <div className="flex items-center gap-6 text-[#655a70]">
           <div className="flex items-center gap-2 cursor-pointer hover:opacity-80">
             <GlobalOutlined />
@@ -55,19 +72,11 @@ export default function LoginPage() {
                       className="w-full h-full"
                     />
                   </div>
-                </div>{" "}
+                </div>
               </motion.div>
               <h1 className="text-3xl font-bold text-[#7f3aa1]">سيلزاوي</h1>
             </div>
-
             <p className="text-[#655a70] font-medium">Sales@we</p>
-
-            {/* <div className="mt-4 flex justify-center opacity-30">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB44EnHvjaIenwnmzxT11O90Whx0-r9lhJfItZP6xVIgb9td3peX1H4D3QI3xtFflRkLBE_D095gWUfRDxh2Ba6bwygJzCtyCEwyudxI73aDt_Aa8bE4_896LfTLHKS6Lb2UpvhVKW-T7ebR10MaBgPdDACPCM02tqxaHAy0mhutnAJu49eOBe0Oz3epGiTjUzOl6a8bVIndKB_UzU3o7Mej2yYQ7rOAVsrm-5zULuvk4de37tJQ3pJFuQ8-eBY25FIpXHZMBG1g1k"
-                className="h-6"
-              />
-            </div> */}
           </div>
 
           {/* CARD */}
@@ -85,12 +94,15 @@ export default function LoginPage() {
                 <label className="block text-xs font-bold text-[#655a70] mb-2">
                   كود الموظف / Employee ID
                 </label>
-
                 <Input
                   size="large"
                   placeholder="مثال: 102345"
                   prefix={<UserOutlined />}
                   className="!rounded-lg !py-2"
+                  value={employeeId}
+                  onChange={(e) => setEmployeeId(e.target.value)}
+                  onPressEnter={handleLogin}
+                  autoComplete="off"
                 />
               </div>
 
@@ -104,36 +116,55 @@ export default function LoginPage() {
                     نسيت كلمة المرور؟
                   </span>
                 </div>
-
                 <Input.Password
                   size="large"
-                  placeholder="••••••••"
+                  placeholder="أدخل كلمة المرور الخاصة بك"
                   prefix={<LockOutlined />}
                   className="!rounded-lg !py-2"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onPressEnter={handleLogin}
+                  autoComplete="off"
                 />
               </div>
 
-              {/* BUTTON */}
-              <Link href={"./chat"}>
-                <Button
-                  type="primary"
-                  size="large"
-                  icon={<FaArrowRightToBracket />}
-                  className="w-full ant-btn !h-[52px] !rounded-lg !font-bold flex flex-row-reverse justify-center items-center gap-2"
+              {/* ERROR */}
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
                   style={{
-                    background: "linear-gradient(to left, #7f3aa1, #b7001d)",
-                    border: "none",
+                    color: "#c0392b",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    textAlign: "center",
+                    margin: 0,
                   }}
                 >
-                  دخول إلى المنصة
-                </Button>
-              </Link>
+                  ❌ {error}
+                </motion.p>
+              )}
+
+              {/* BUTTON */}
+              <Button
+                type="primary"
+                size="large"
+                icon={<FaArrowRightToBracket />}
+                loading={loading}
+                onClick={handleLogin}
+                className="w-full ant-btn !h-[52px] !rounded-lg !font-bold flex flex-row-reverse justify-center items-center gap-2"
+                style={{
+                  background: "linear-gradient(to left, #7f3aa1, #b7001d)",
+                  border: "none",
+                }}
+              >
+                دخول إلى المنصة
+              </Button>
             </div>
 
             {/* DIVIDER */}
             <div className="mt-8 pt-6 border-t flex flex-col items-center gap-4">
               <p className="text-sm text-[#655a70]">ليس لديك صلاحية وصول؟</p>
-
               <button className="text-sm font-bold text-[#7f3aa1] border border-[#7f3aa1]/20 px-6 py-2 rounded-full hover:bg-[#7f3aa1]/5 transition">
                 طلب تصريح دخول
               </button>
