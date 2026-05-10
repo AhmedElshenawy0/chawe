@@ -25,7 +25,7 @@ export default function LoginPage() {
     if (employeeId === "4939" && password === "4939") {
       setLoading(true);
       setTimeout(() => {
-        router.push("./chat?token=we-sales-4939");
+        router.push("./chat?id=we-sales-#2752tg36-ei#&7PdI9");
       }, 600);
     } else {
       setError("كود الموظف أو كلمة المرور غير صحيحة");

@@ -658,7 +658,7 @@ function TypingBubble() {
         }}
       >
         <span style={{ fontSize: 12, color: C.onSurfaceVar }}>
-          لبيب يفكر...
+          سيلزاوي يفكر...
         </span>
         <div style={{ display: "flex", gap: 4 }}>
           {[0, 0.18, 0.36].map((d, i) => (
@@ -1617,8 +1617,8 @@ export default function LabibChat() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-    if (token !== "we-sales-4939") {
+    const token = searchParams.get("id");
+    if (token !== "we-sales-#2752tg36-ei#&7PdI9") {
       router.replace("/"); // redirect to login
     }
   }, []);
